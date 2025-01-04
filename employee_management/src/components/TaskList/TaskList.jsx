@@ -1,28 +1,29 @@
-
 import React from 'react'
+import AcceptTask from './AcceptTask'
+import NewTask from './NewTask'
+import CompleteTask from './CompleteTask'
+import FailedTask from './FailedTask'
 
-const TaskListNumbers = ({data}) => {
-  return (
-    <div className='flex mt-10 justify-between gap-5 screen'>
-        
-        <div className='rounded-xl w-[45%] py-6 px-9 bg-blue-400'>
-            <h2 className='text-3xl font-bold'>{data.taskCounts.newTask}</h2>
-            <h3 className='text-xl mt-0.5 font-medium'>New Task</h3>
+const TaskList = ({ data }) => {
+    return (
+        <div id='tasklist' className='h-[50%] overflow-x-auto flex items-center justify-start gap-5 flex-nowrap w-full py-1 mt-16'>
+            {data.tasks.map((elem, idx) => {
+                if (elem.active) {
+                    return <AcceptTask key={idx} data={elem} />
+                }
+                if (elem.newTask) {
+                    return <NewTask key={idx} data={elem} />
+                }
+                if (elem.completed) {
+                    return <CompleteTask key={idx} data={elem} />
+                }
+                if (elem.failed) {
+                    return <FailedTask key={idx} data={elem} />
+                }
+
+            })}
         </div>
-        <div className='rounded-xl w-[45%] py-6 px-9 bg-green-400'>
-            <h2 className='text-3xl font-bold'>{data.taskCounts.completed}</h2>
-            <h3 className='text-xl mt-0.5 font-medium'>Completed Task</h3>
-        </div>
-        <div className='rounded-xl w-[45%] py-6 px-9 bg-yellow-400 '>
-            <h2 className='text-3xl text-black font-bold'>{data.taskCounts.active}</h2>
-            <h3 className='text-xl mt-0.5 text-black font-medium'>Accepted Task</h3>
-        </div>
-        <div className='rounded-xl w-[45%] py-6 px-9 bg-red-400'>
-            <h2 className='text-3xl font-bold'>{data.taskCounts.failed}</h2>
-            <h3 className='text-xl mt-0.5 font-medium'>Failed Task</h3>
-        </div>
-    </div>
-  )
+    )
 }
 
-export default TaskListNumbers
+export default TaskList
